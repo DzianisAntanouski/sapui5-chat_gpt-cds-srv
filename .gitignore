@@ -1,4 +1,5 @@
 # CAP sapui5-gpt-bot
+config/
 _out
 *.db
 *.sqlite
