@@ -1,0 +1,30 @@
+<mvc:View controllerName="chatui.controller.Chat"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m">
+    <SplitApp id="SplitAppDemo" initialDetail="detail" initialMaster="master">
+        <masterPages>
+            <Page id="context" title="Sessions" backgroundDesign= "List">
+                <List items="{/Session}">
+                    <StandardListItem title="{Name}" type="Navigation" press=".onPressGoToMaster" />
+                </List>
+            </Page>
+        </masterPages>
+        <detailPages>
+            <Page id="chats" title="Chat" backgroundDesign= "Solid" busyIndicatorDelay="0">
+                <List headerText="{Name}" id="messageList" items="{Messages}">
+                    <FeedListItem 
+                        id="chatList" 
+                        sender="{= ${role} === 'user' ? 'You' : 'GPT bot'}" 
+                        senderActive="{= ${role} === 'user'}" 
+                        icon="{= ${role} === 'user' ? 'sap-icon://person-placeholder' : 'sap-icon://key-user-settings'}" 
+                        iconDensityAware="false"
+                        timestamp="{Date}" 
+                        text="{content}" 
+                        convertLinksToAnchorTags="All"/>
+                </List>
+                <FeedInput id="feedInput" post="onPost" icon="sap-icon://person-placeholder" class="sapUiSmallMarginTopBottom" />
+            </Page>
+        </detailPages>
+
+    </SplitApp>
+</mvc:View>

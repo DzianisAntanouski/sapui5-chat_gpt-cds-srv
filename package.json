@@ -13,10 +13,12 @@
     "openai": "^3.2.1"
   },
   "devDependencies": {
+    "@sap/ux-specification": "^1.108.6",
     "sqlite3": "^5"
   },
   "scripts": {
     "start": "cds-serve",
-    "dev": "cds watch --in-memory"
+    "dev": "cds watch --in-memory",
+    "watch-chatui": "cds watch --open chatui/webapp/index.html?sap-ui-xx-viewCache=false"
   }
 }

@@ -1,0 +1,1 @@
+using GPTService as service from '../../srv/gpt-srv';

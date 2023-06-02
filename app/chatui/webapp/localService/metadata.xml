@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Validation.V1.xml">
+        <edmx:Include Alias="Validation" Namespace="Org.OData.Validation.V1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="GPTService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="User" EntityType="GPTService.User">
+                    <NavigationPropertyBinding Path="Sessions" Target="Session"/>
+                    <NavigationPropertyBinding Path="Messages" Target="Messages"/>
+                </EntitySet>
+                <EntitySet Name="Session" EntityType="GPTService.Session">
+                    <NavigationPropertyBinding Path="User" Target="User"/>
+                    <NavigationPropertyBinding Path="Messages" Target="Messages"/>
+                </EntitySet>
+                <EntitySet Name="Messages" EntityType="GPTService.Messages">
+                    <NavigationPropertyBinding Path="Session" Target="Session"/>
+                    <NavigationPropertyBinding Path="User" Target="User"/>
+                </EntitySet>
+                <FunctionImport Name="sendMessage" Function="GPTService.sendMessage"/>
+            </EntityContainer>
+            <EntityType Name="User">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="Name" Type="Edm.String"/>
+                <NavigationProperty Name="Sessions" Type="Collection(GPTService.Session)" Partner="User"/>
+                <NavigationProperty Name="Messages" Type="Collection(GPTService.Messages)" Partner="User"/>
+            </EntityType>
+            <EntityType Name="Session">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int32" Nullable="false"/>
+                <NavigationProperty Name="User" Type="GPTService.User" Partner="Sessions">
+                    <ReferentialConstraint Property="User_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="User_ID" Type="Edm.Int32"/>
+                <Property Name="Name" Type="Edm.String"/>
+                <NavigationProperty Name="Messages" Type="Collection(GPTService.Messages)" Partner="Session"/>
+            </EntityType>
+            <EntityType Name="Messages">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int32" Nullable="false"/>
+                <NavigationProperty Name="Session" Type="GPTService.Session" Partner="Messages">
+                    <ReferentialConstraint Property="Session_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="Session_ID" Type="Edm.Int32"/>
+                <Property Name="role" Type="Edm.String"/>
+                <Property Name="content" Type="Edm.String"/>
+                <NavigationProperty Name="User" Type="GPTService.User" Partner="Messages">
+                    <ReferentialConstraint Property="User_ID" ReferencedProperty="ID"/>
+                </NavigationProperty>
+                <Property Name="User_ID" Type="Edm.Int32"/>
+                <Property Name="Date" Type="Edm.Date"/>
+            </EntityType>
+            <Function Name="sendMessage" IsBound="false" IsComposable="false">
+                <Parameter Name="Message" Type="Edm.String"/>
+                <Parameter Name="sessionId" Type="Edm.Int32"/>
+                <ReturnType Type="Edm.String"/>
+            </Function>
+            <Annotations Target="GPTService.Messages/role">
+                <Annotation Term="Validation.AllowedValues">
+                    <Collection>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="assistant"/>
+                            <PropertyValue Property="Value" String="assistant"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="user"/>
+                            <PropertyValue Property="Value" String="user"/>
+                        </Record>
+                        <Record Type="Validation.AllowedValue">
+                            <Annotation Term="Core.SymbolicName" String="system"/>
+                            <PropertyValue Property="Value" String="system"/>
+                        </Record>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
