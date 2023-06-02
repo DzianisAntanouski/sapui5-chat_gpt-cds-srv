@@ -1,6 +1,5 @@
 const getKey = function () {
-    const OPENAI_KEY = "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";
-    return OPENAI_KEY
+    return "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";
 }
 
-module.export = getKey();
+module.exports = getKey();

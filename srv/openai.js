@@ -1,5 +1,4 @@
 const { Configuration, OpenAIApi } = require("openai")
-const config = require("config")
 
 class OpenAI {
     constructor(apiKey) {
@@ -22,5 +21,5 @@ class OpenAI {
     }
 }
 
-const openai = new OpenAI(config.get("OPENAI_KEY"));
+const openai = new OpenAI(require("./key.js"));
 module.exports = openai;
