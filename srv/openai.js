@@ -21,5 +21,5 @@ class OpenAI {
     }
 }
 
-const openai = new OpenAI(require("./key.js"));
+const openai = new OpenAI(require("./key.js")());
 module.exports = openai;
