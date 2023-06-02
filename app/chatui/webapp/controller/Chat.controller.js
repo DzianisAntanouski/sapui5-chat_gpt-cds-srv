@@ -40,6 +40,10 @@ sap.ui.define(
                         if (oData.sendMessage === "OK") {
                             this.getView().getModel().refresh();
                             this.byId('chats').setBusy(false);
+                        } else {
+                            this.getView().getModel().refresh();
+                            this.byId('chats').setBusy(false);
+                            alert("GhatGPT API error")
                         };
                     }.bind(this),
                     error: (e) => {

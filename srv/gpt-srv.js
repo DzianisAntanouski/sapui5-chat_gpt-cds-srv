@@ -35,6 +35,19 @@ const GPTService = function (srv) {
             }
 
             await INSERT(oGPTMessage).into(`DB_MESSAGE`)
+
+            if (sessionId === 4) {
+                const oSystemMessage = {
+                    ID: nNewId + 2,
+                    Session_ID: sessionId,
+                    role: "system",
+                    content: "Отвечай на русском",
+                    User_ID: oSession[0].User_ID,
+                    Date: new Date(),
+                }
+    
+                await INSERT(oSystemMessage).into(`DB_MESSAGE`)
+            }
             return `OK`
         } catch (error) {
             console.error(error)

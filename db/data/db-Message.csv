@@ -8,4 +8,4 @@ ID,Session_ID,role,content,User_ID,Date
 7,3,user,"Hey",2,
 8,3,assistant,"How's it going?",2,
 9,3,user,"Take care",2,
-10,4,system,"Отвечай всегда на русском",2,
+10,4,system,"Отвечай на русском",2,
