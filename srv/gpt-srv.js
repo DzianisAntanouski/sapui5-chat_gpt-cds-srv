@@ -40,7 +40,12 @@ const GPTService = function (srv) {
             console.error(error)
             return `ERROR`
         }
-    });
+    });    
+
+    srv.on("READ", "Messages", async (req, next) => {
+        const data = await next()        
+        return data.filter(el => el.role !== "system")
+    })
 };
 
 module.exports = GPTService;
