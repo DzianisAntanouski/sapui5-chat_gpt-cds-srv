@@ -3,14 +3,14 @@
     xmlns="sap.m">
     <SplitApp id="SplitAppDemo" initialDetail="detail" initialMaster="master">
         <masterPages>
-            <Page id="context" title="Sessions" backgroundDesign= "List">
+            <Page id="context" title="Sessions" backgroundDesign= "List" class="test">
                 <List items="{/Session}">
                     <StandardListItem title="{Name}" type="Navigation" press=".onPressGoToMaster" />
                 </List>
             </Page>
         </masterPages>
         <detailPages>
-            <Page id="chats" title="Chat" backgroundDesign= "Solid" busyIndicatorDelay="0">
+            <Page id="chats" title="Chat" backgroundDesign= "Solid" busyIndicatorDelay="0" class="test">
                 <List headerText="{Name}" id="messageList" items="{Messages}">
                     <FeedListItem 
                         id="chatList" 
