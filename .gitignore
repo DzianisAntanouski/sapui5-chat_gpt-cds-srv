@@ -9,6 +9,8 @@ default-*.json
 gen/
 node_modules/
 target/
+srv/key.js
+app/chayui/node_modules/
 
 # Web IDE, App Studio
 .che/
